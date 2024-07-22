@@ -2,6 +2,13 @@
 
 This is the Camplight pair coding task. You and the interviewer are going to work together on it to make it better.
 
+## Preparation
+
+1. If you use VSCode: install LiveShare plugin
+2. IF you use another IDE: install https://mob.sh/
+
+The intention is to work in a true pair-programming manner.
+
 # Setup
 
 1. Create a new `data.json` file with the following contents:
