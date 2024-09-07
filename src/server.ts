@@ -28,16 +28,12 @@ function respondWithHealthCheck(res: ServerResponse<IncomingMessage>) {
 
 export function serverFunction(req: IncomingMessage, res: ServerResponse, data: any = getDataFromFile('data.json')) {
     if (req.method !== 'GET') {
-        res.writeHead(404, {'Content-Type': 'text/plain'});
-        res.end('Not Found');
-        return;
+        return respondWithError(res, 404, 'Not Found');
     }
 
     let requestUrl = req.url;
     if (!requestUrl) {
-        res.writeHead(404, {'Content-Type': 'text/plain'});
-        res.end('Not Found');
-        return;
+        return respondWithError(res, 404, 'Not Found');
     }
 
     if (requestUrl.startsWith('/users')) {
