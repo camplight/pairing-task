@@ -57,8 +57,9 @@ export function serverFunction(req: IncomingMessage, res: ServerResponse, data: 
             res.writeHead(500, {'Content-Type': 'text/plain'});
             res.end('Internal Server Error');
         }
-    } else {
-        res.writeHead(404, {'Content-Type': 'text/plain'});
-        res.end('Not Found');
+        return;
     }
+
+    res.writeHead(404, {'Content-Type': 'text/plain'});
+    res.end('Not Found');
 }
