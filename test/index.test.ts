@@ -113,18 +113,12 @@ describe('tests with corrupt data', () => {
         [
             'getting users',
             '/users',
-            500,
-            "text/plain",
-            'Internal Server Error',
         ],
         [
             'getting a user',
             '/users/1',
-            500,
-            "text/plain",
-            'Internal Server Error',
         ]
-    ])('%s', (_scenario: string, url: string, statusCode: number, contentType: string, message: any) => {
+    ])('%s', (_scenario: string, url: string) => {
         const dataWithoutUsersField = { notUsers: 423 };
         testServerFunctionToReturn500Error(url, dataWithoutUsersField);
     });
