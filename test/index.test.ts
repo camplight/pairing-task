@@ -78,16 +78,26 @@ describe('main test', () => {
     testServerFunctionWithData(request, statusCode, contentType, message);
   });
 
-  it('when getting users and there is no data', () => {
+  it.each([
+      [
+          'getting users',
+          '/users',
+          500,
+          "text/plain",
+          'Internal Server Error',
+      ]
+  ])('%s', (_scenario: string, url: string, statusCode: number, contentType: string, message: any) => {
     const request = {
-      url: "/users",
+      url,
       method: "GET",
     }
+
     const response = new ServerResponse();
     // @ts-ignore
     Server.serverFunction(request, response, '');
-    expect(response.statusCode).toEqual(500);
-    expect(response.headers).toEqual({"Content-Type": "text/plain"})
-    expect(response.message).toEqual('Internal Server Error');
+
+    expect(response.statusCode).toEqual(statusCode);
+    expect(response.headers).toEqual({"Content-Type": contentType})
+    expect(response.message).toEqual(message);
   });
 })
