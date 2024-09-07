@@ -42,16 +42,15 @@ export function serverFunction(req: IncomingMessage, res: ServerResponse, data: 
 
     if (requestUrl === '/users') {
         if (data) {
-            respondWithData(res, data);
+            return respondWithData(res, data);
         } else {
-            respondWithError(res, 500, 'Internal Server Error');
+            return respondWithError(res, 500, 'Internal Server Error');
         }
         return;
     }
 
     if (requestUrl === '/health') {
-        respondWithHealthCheck(res);
-        return;
+        return respondWithHealthCheck(res);
     }
 
     if (requestUrl.startsWith('/users/')) {
@@ -59,12 +58,12 @@ export function serverFunction(req: IncomingMessage, res: ServerResponse, data: 
             const id = requestUrl.split('/')[2];
             const user = data.users.find((u: any) => u.id == id);
             if (user) {
-                respondWithData(res, user);
+                return respondWithData(res, user);
             } else {
-                respondWithError(res, 404, 'User not found');
+                return respondWithError(res, 404, 'User not found');
             }
         } else {
-            respondWithError(res, 500, 'Internal Server Error');
+            return respondWithError(res, 500, 'Internal Server Error');
         }
         return;
     }
