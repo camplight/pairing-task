@@ -77,7 +77,7 @@ describe('tests with regular data', () => {
   });
 })
 
-function testServerFunctionToReturn500Error(url: string, data: string) {
+function testServerFunctionToReturn500Error(url: string, data: any) {
     const request = {
         url,
         method: "GET",
@@ -126,18 +126,7 @@ describe('tests with corrupt data', () => {
         ]
     ])('%s', (_scenario: string, url: string, statusCode: number, contentType: string, message: any) => {
         const dataWithoutUsersField = { notUsers: 423 };
-
-        const request = {
-            url,
-            method: "GET",
-        }
-        const response = new ServerResponse();
-        // @ts-ignore
-        Server.serverFunction(request, response, dataWithoutUsersField);
-
-        expect(response.statusCode).toEqual(statusCode);
-        expect(response.headers).toEqual({"Content-Type": contentType})
-        expect(response.message).toEqual(message);
+        testServerFunctionToReturn500Error(url, dataWithoutUsersField);
     });
 });
 
