@@ -27,7 +27,7 @@ function testServerFunctionWithData(request: any, statusCode: number, contentTyp
   expect(response.message).toEqual(message)
 }
 
-describe('main test', () => {
+describe('tests data', () => {
   it.each([
       [
         'making a health check returns status 200',
@@ -77,27 +77,29 @@ describe('main test', () => {
   ])('%s', (_scenario: string, request: any, statusCode: number, contentType: string, message: any) => {
     testServerFunctionWithData(request, statusCode, contentType, message);
   });
-
-  it.each([
-      [
-          'getting users',
-          '/users',
-          500,
-          "text/plain",
-          'Internal Server Error',
-      ]
-  ])('%s', (_scenario: string, url: string, statusCode: number, contentType: string, message: any) => {
-    const request = {
-      url,
-      method: "GET",
-    }
-
-    const response = new ServerResponse();
-    // @ts-ignore
-    Server.serverFunction(request, response, '');
-
-    expect(response.statusCode).toEqual(statusCode);
-    expect(response.headers).toEqual({"Content-Type": contentType})
-    expect(response.message).toEqual(message);
-  });
 })
+
+describe('tests with missing data', () => {
+    it.each([
+        [
+            'getting users',
+            '/users',
+            500,
+            "text/plain",
+            'Internal Server Error',
+        ]
+    ])('%s', (_scenario: string, url: string, statusCode: number, contentType: string, message: any) => {
+        const request = {
+            url,
+            method: "GET",
+        }
+
+        const response = new ServerResponse();
+        // @ts-ignore
+        Server.serverFunction(request, response, '');
+
+        expect(response.statusCode).toEqual(statusCode);
+        expect(response.headers).toEqual({"Content-Type": contentType})
+        expect(response.message).toEqual(message);
+    });
+});
