@@ -57,16 +57,13 @@ export function serverFunction(req: IncomingMessage, res: ServerResponse, data: 
             if (user) {
                 respondWithData(res, user);
             } else {
-                res.writeHead(404, {'Content-Type': 'text/plain'});
-                res.end('User not found');
+                respondWithError(res, 404, 'User not found');
             }
         } else {
-            res.writeHead(500, {'Content-Type': 'text/plain'});
-            res.end('Internal Server Error');
+            respondWithError(res, 500, 'Internal Server Error');
         }
         return;
     }
 
-    res.writeHead(404, {'Content-Type': 'text/plain'});
-    res.end('Not Found');
+    respondWithError(res, 404, 'Not Found');
 }
