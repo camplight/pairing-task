@@ -77,7 +77,7 @@ describe('tests with regular data', () => {
   });
 })
 
-function testServerFunctionWithoutData(url: string, statusCode: number, contentType: string, message: any) {
+function testServerFunctionWithoutData(url: string) {
     const request = {
         url,
         method: "GET",
@@ -109,7 +109,7 @@ describe('tests with missing data', () => {
             'Internal Server Error',
         ]
     ])('%s', (_scenario: string, url: string, statusCode: number, contentType: string, message: any) => {
-        testServerFunctionWithoutData(url, statusCode, contentType, message);
+        testServerFunctionWithoutData(url);
     });
 });
 
