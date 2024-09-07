@@ -21,6 +21,11 @@ function respondWithError(res: ServerResponse<IncomingMessage>, code: number, me
     res.end(message);
 }
 
+function respondWithHealthCheck(res: ServerResponse<IncomingMessage>) {
+    res.writeHead(200, {'Content-Type': 'text/plain'});
+    res.end('OK');
+}
+
 export function serverFunction(req: IncomingMessage, res: ServerResponse, data: any = getDataFromFile('data.json')) {
     if (req.method !== 'GET') {
         res.writeHead(404, {'Content-Type': 'text/plain'});
@@ -45,8 +50,7 @@ export function serverFunction(req: IncomingMessage, res: ServerResponse, data: 
     }
 
     if (requestUrl === '/health') {
-        res.writeHead(200, {'Content-Type': 'text/plain'});
-        res.end('OK');
+        respondWithHealthCheck(res);
         return;
     }
 
