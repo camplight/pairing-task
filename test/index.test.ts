@@ -103,7 +103,8 @@ describe('tests with missing data', () => {
             '/users/1',
         ]
     ])('%s', (_scenario: string, url: string) => {
-        testServerFunctionWithoutData(url, '');
+        const emptyData = '';
+        testServerFunctionWithoutData(url, emptyData);
     });
 });
 
