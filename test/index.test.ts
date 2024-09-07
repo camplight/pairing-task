@@ -97,18 +97,12 @@ describe('tests with missing data', () => {
         [
             'getting users',
             '/users',
-            500,
-            "text/plain",
-            'Internal Server Error',
         ],
         [
             'getting a user',
             '/users/1',
-            500,
-            "text/plain",
-            'Internal Server Error',
         ]
-    ])('%s', (_scenario: string, url: string, statusCode: number, contentType: string, message: any) => {
+    ])('%s', (_scenario: string, url: string) => {
         testServerFunctionWithoutData(url);
     });
 });
