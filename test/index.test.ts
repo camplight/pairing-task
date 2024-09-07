@@ -105,3 +105,23 @@ describe('tests with missing data', () => {
         testServerFunctionWithoutData(url, statusCode, contentType, message);
     });
 });
+
+describe('wrong request tests', () => {
+    it.each([
+        [
+            'should treat a non-existent URL',
+            {
+                url: '/i_do_not_exist',
+                method: "GET",
+            }
+        ]
+    ])('%s', (_scenario: string, badRequest: any) => {
+        const response = new ServerResponse();
+        // @ts-ignore
+        Server.serverFunction(badRequest, response)
+
+        expect(response.statusCode).toEqual(404);
+        expect(response.headers).toEqual({"Content-Type": "text/plain"})
+        expect(response.message).toEqual('Not Found')
+    });
+});
