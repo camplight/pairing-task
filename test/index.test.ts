@@ -118,9 +118,9 @@ describe('tests with corrupt data', () => {
         [
             'getting users',
             '/users',
-            200,
-            "application/json",
-            JSON.stringify({ notUsers: 423 }),
+            500,
+            "text/plain",
+            'Internal Server Error',
         ],
         [
             'getting a user',

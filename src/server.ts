@@ -42,7 +42,7 @@ export function serverFunction(req: IncomingMessage, res: ServerResponse, data: 
 
     if (requestUrl.startsWith('/users')) {
         if (requestUrl === '/users') {
-            if (data) {
+            if (data && data.users) {
                 return respondWithData(res, data);
             }
 
