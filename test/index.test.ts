@@ -77,7 +77,7 @@ describe('tests with regular data', () => {
   });
 })
 
-function testServerFunctionWithoutData(url: string) {
+function testServerFunctionWithoutData(url: string, data: string) {
     const request = {
         url,
         method: "GET",
@@ -85,7 +85,7 @@ function testServerFunctionWithoutData(url: string) {
 
     const response = new ServerResponse();
     // @ts-ignore
-    Server.serverFunction(request, response, '');
+    Server.serverFunction(request, response, data);
 
     expect(response.statusCode).toEqual(500);
     expect(response.headers).toEqual({"Content-Type": "text/plain"})
@@ -103,7 +103,7 @@ describe('tests with missing data', () => {
             '/users/1',
         ]
     ])('%s', (_scenario: string, url: string) => {
-        testServerFunctionWithoutData(url);
+        testServerFunctionWithoutData(url, '');
     });
 });
 
