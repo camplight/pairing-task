@@ -22,10 +22,10 @@ export function serverFunction(req: IncomingMessage, res: ServerResponse, data: 
                 res.end('Internal Server Error');
             }
         } else {
-            if (req.url === '/health' && req.method === 'GET') {
+            if (req.method === 'GET' && req.url === '/health') {
                 res.writeHead(200, {'Content-Type': 'text/plain'});
                 res.end('OK');
-            } else if (req.url && req.url.startsWith('/users/') && req.method === 'GET') {
+            } else if (req.method === 'GET' && req.url && req.url.startsWith('/users/')) {
                 const id = req.url.split('/')[2];
                 if (data && data.users) {
                     const user = data.users.find((u: any) => u.id == id);
