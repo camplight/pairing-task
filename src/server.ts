@@ -51,8 +51,7 @@ export function serverFunction(req: IncomingMessage, res: ServerResponse, data: 
             const id = requestUrl.split('/')[2];
             const user = data.users.find((u: any) => u.id == id);
             if (user) {
-                res.writeHead(200, {'Content-Type': 'application/json'});
-                res.end(JSON.stringify(user));
+                prepareResponse(res, user);
             } else {
                 res.writeHead(404, {'Content-Type': 'text/plain'});
                 res.end('User not found');
