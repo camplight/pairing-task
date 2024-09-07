@@ -18,13 +18,14 @@ export function serverFunction(req: IncomingMessage, res: ServerResponse, data: 
         return;
     }
 
-    if (!req.url) {
+    let requestUrl = req.url;
+    if (!requestUrl) {
         res.writeHead(404, {'Content-Type': 'text/plain'});
         res.end('Not Found');
         return;
     }
 
-    if (req.url === '/users') {
+    if (requestUrl === '/users') {
         if (data) {
             res.writeHead(200, {'Content-Type': 'application/json'});
             res.end(JSON.stringify(data));
@@ -32,30 +33,26 @@ export function serverFunction(req: IncomingMessage, res: ServerResponse, data: 
             res.writeHead(500, {'Content-Type': 'text/plain'});
             res.end('Internal Server Error');
         }
-    } else {
-        if (req.url === '/health') {
-            res.writeHead(200, {'Content-Type': 'text/plain'});
-            res.end('OK');
-        } else {
-            if (req.url.startsWith('/users/')) {
-                const id = req.url.split('/')[2];
-                if (data && data.users) {
-                    const user = data.users.find((u: any) => u.id == id);
-                    if (user) {
-                        res.writeHead(200, {'Content-Type': 'application/json'});
-                        res.end(JSON.stringify(user));
-                    } else {
-                        res.writeHead(404, {'Content-Type': 'text/plain'});
-                        res.end('User not found');
-                    }
-                } else {
-                    res.writeHead(500, {'Content-Type': 'text/plain'});
-                    res.end('Internal Server Error');
-                }
+    } else if (requestUrl === '/health') {
+        res.writeHead(200, {'Content-Type': 'text/plain'});
+        res.end('OK');
+    } else if (requestUrl.startsWith('/users/')) {
+        const id = requestUrl.split('/')[2];
+        if (data && data.users) {
+            const user = data.users.find((u: any) => u.id == id);
+            if (user) {
+                res.writeHead(200, {'Content-Type': 'application/json'});
+                res.end(JSON.stringify(user));
             } else {
                 res.writeHead(404, {'Content-Type': 'text/plain'});
-                res.end('Not Found');
+                res.end('User not found');
             }
+        } else {
+            res.writeHead(500, {'Content-Type': 'text/plain'});
+            res.end('Internal Server Error');
         }
+    } else {
+        res.writeHead(404, {'Content-Type': 'text/plain'});
+        res.end('Not Found');
     }
 }
