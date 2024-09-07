@@ -39,7 +39,10 @@ export function serverFunction(req: IncomingMessage, res: ServerResponse, data: 
     if (requestUrl === '/health') {
         res.writeHead(200, {'Content-Type': 'text/plain'});
         res.end('OK');
-    } else if (requestUrl.startsWith('/users/')) {
+        return;
+    }
+
+    if (requestUrl.startsWith('/users/')) {
         if (data && data.users) {
             const id = requestUrl.split('/')[2];
             const user = data.users.find((u: any) => u.id == id);
