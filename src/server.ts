@@ -31,7 +31,10 @@ export function serverFunction(req: IncomingMessage, res: ServerResponse, data: 
             res.writeHead(200, {'Content-Type': 'text/plain'});
             res.end('OK');
         } else {
-            if (req.url) {
+            if (!req.url) {
+                res.writeHead(404, {'Content-Type': 'text/plain'});
+                res.end('Not Found');
+            } else {
                 if (req.url.startsWith('/users/')) {
                     const id = req.url.split('/')[2];
                     if (data && data.users) {
@@ -51,9 +54,6 @@ export function serverFunction(req: IncomingMessage, res: ServerResponse, data: 
                     res.writeHead(404, {'Content-Type': 'text/plain'});
                     res.end('Not Found');
                 }
-            } else {
-                res.writeHead(404, {'Content-Type': 'text/plain'});
-                res.end('Not Found');
             }
         }
     }
