@@ -18,15 +18,18 @@ class ServerResponse {
 }
 
 describe('main test', () => {
-  it('when making a health check returns status 200', () => {
-    const request = {
-      url: "/health",
-      method: "GET",
-    }
-    const statusCode = 200;
-    const contentType = "text/plain";
-    const message = 'OK';
-
+  it.each([
+      [
+        'making a health check returns status 200',
+        {
+          url: "/health",
+          method: "GET",
+        },
+        200,
+        "text/plain",
+        'OK',
+      ]
+  ])('%s', (_scenario: string, request: any, statusCode: number, contentType: string, message: any) => {
     const response = new ServerResponse();
     // @ts-ignore
     Server.serverFunction(request, response)
