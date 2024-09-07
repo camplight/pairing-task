@@ -15,7 +15,12 @@ class ServerResponse {
   }
 }
 
-function testServerFunctionWithData(request: any, statusCode: number, contentType: string, message: any) {
+function testServerFunctionWithData(url: string, statusCode: number, contentType: string, message: any) {
+  const request = {
+    url,
+    method: "GET",
+  }
+
   const response = new ServerResponse();
   // @ts-ignore
   Server.serverFunction(request, response)
@@ -29,20 +34,14 @@ describe('tests data', () => {
   it.each([
       [
         'making a health check returns status 200',
-        {
-          url: "/health",
-          method: "GET",
-        },
+        "/health",
         200,
         "text/plain",
         'OK',
       ],
       [
         'getting users',
-        {
-          url: "/users",
-          method: "GET",
-        },
+        "/users",
         200,
         "application/json",
         JSON.stringify({
@@ -54,26 +53,20 @@ describe('tests data', () => {
       ],
       [
       'getting one particular user by id',
-          {
-            url: "/users/2",
-            method: "GET",
-          },
+          "/users/2",
           200,
           "application/json",
           JSON.stringify({ "id": "2", "name": "Bob" })
       ],
       [
       'getting non-existent user id',
-          {
-            url: "/users/9999",
-            method: "GET",
-          },
+          "/users/9999",
           404,
           "text/plain",
           'User not found'
       ]
-  ])('%s', (_scenario: string, request: any, statusCode: number, contentType: string, message: any) => {
-    testServerFunctionWithData(request, statusCode, contentType, message);
+  ])('%s', (_scenario: string, url: string, statusCode: number, contentType: string, message: any) => {
+    testServerFunctionWithData(url, statusCode, contentType, message);
   });
 })
 
