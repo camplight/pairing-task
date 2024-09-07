@@ -77,7 +77,7 @@ describe('tests with regular data', () => {
   });
 })
 
-function testServerFunctionWithoutData(url: string, data: string) {
+function testServerFunctionToReturn500Error(url: string, data: string) {
     const request = {
         url,
         method: "GET",
@@ -104,7 +104,7 @@ describe('tests with missing data', () => {
         ]
     ])('%s', (_scenario: string, url: string) => {
         const emptyData = '';
-        testServerFunctionWithoutData(url, emptyData);
+        testServerFunctionToReturn500Error(url, emptyData);
     });
 });
 
@@ -125,14 +125,15 @@ describe('tests with corrupt data', () => {
             'Internal Server Error',
         ]
     ])('%s', (_scenario: string, url: string, statusCode: number, contentType: string, message: any) => {
+        const dataWithoutUsersField = { notUsers: 423 };
+
         const request = {
             url,
             method: "GET",
         }
-
         const response = new ServerResponse();
         // @ts-ignore
-        Server.serverFunction(request, response, { notUsers: 423 });
+        Server.serverFunction(request, response, dataWithoutUsersField);
 
         expect(response.statusCode).toEqual(statusCode);
         expect(response.headers).toEqual({"Content-Type": contentType})
