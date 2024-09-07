@@ -17,6 +17,16 @@ class ServerResponse {
   }
 }
 
+function testServerFunctionWithData(request: any, statusCode: number, contentType: string, message: any) {
+  const response = new ServerResponse();
+  // @ts-ignore
+  Server.serverFunction(request, response)
+
+  expect(response.statusCode).toEqual(statusCode);
+  expect(response.headers).toEqual({"Content-Type": contentType})
+  expect(response.message).toEqual(message)
+}
+
 describe('main test', () => {
   it.each([
       [
@@ -45,13 +55,7 @@ describe('main test', () => {
         })
       ]
   ])('%s', (_scenario: string, request: any, statusCode: number, contentType: string, message: any) => {
-    const response = new ServerResponse();
-    // @ts-ignore
-    Server.serverFunction(request, response)
-
-    expect(response.statusCode).toEqual(statusCode);
-    expect(response.headers).toEqual({"Content-Type": contentType})
-    expect(response.message).toEqual(message)
+    testServerFunctionWithData(request, statusCode, contentType, message);
   });
 
   it('when getting users and there is no data', () => {
