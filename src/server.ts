@@ -47,8 +47,6 @@ export function serverFunction(req: IncomingMessage, res: ServerResponse, data: 
 
         if (requestUrl === '/users') {
             return respondWithData(res, data);
-
-            return respondWithError(res, 500, 'Internal Server Error');
         }
 
         if (requestUrl.startsWith('/users/')) {
@@ -58,7 +56,6 @@ export function serverFunction(req: IncomingMessage, res: ServerResponse, data: 
                 return respondWithData(res, user);
             }
             return respondWithError(res, 404, 'User not found');
-            return respondWithError(res, 500, 'Internal Server Error');
         }
     }
 
