@@ -18,6 +18,12 @@ export function serverFunction(req: IncomingMessage, res: ServerResponse, data: 
         return;
     }
 
+    if (!req.url) {
+        res.writeHead(404, {'Content-Type': 'text/plain'});
+        res.end('Not Found');
+        return;
+    }
+
     if (req.url === '/users') {
         if (data) {
             res.writeHead(200, {'Content-Type': 'application/json'});
