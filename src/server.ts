@@ -37,8 +37,8 @@ export function serverFunction(req: IncomingMessage, res: ServerResponse, data: 
         res.writeHead(200, {'Content-Type': 'text/plain'});
         res.end('OK');
     } else if (requestUrl.startsWith('/users/')) {
-        const id = requestUrl.split('/')[2];
         if (data && data.users) {
+            const id = requestUrl.split('/')[2];
             const user = data.users.find((u: any) => u.id == id);
             if (user) {
                 res.writeHead(200, {'Content-Type': 'application/json'});
