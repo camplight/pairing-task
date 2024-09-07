@@ -63,6 +63,16 @@ describe('main test', () => {
           200,
           "application/json",
           JSON.stringify({ "id": "2", "name": "Bob" })
+      ],
+      [
+      'getting non-existent user id',
+          {
+            url: "/users/9999",
+            method: "GET",
+          },
+          404,
+          "text/plain",
+          'User not found'
       ]
   ])('%s', (_scenario: string, request: any, statusCode: number, contentType: string, message: any) => {
     testServerFunctionWithData(request, statusCode, contentType, message);
