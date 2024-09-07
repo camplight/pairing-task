@@ -124,6 +124,16 @@ describe('tests with corrupt data', () => {
     });
 });
 
+function testServerFunctionToReturn404Error(badRequest: any) {
+    const response = new ServerResponse();
+    // @ts-ignore
+    Server.serverFunction(badRequest, response)
+
+    expect(response.statusCode).toEqual(404);
+    expect(response.headers).toEqual({"Content-Type": "text/plain"})
+    expect(response.message).toEqual('Not Found')
+}
+
 describe('wrong request tests', () => {
     it.each([
         [
@@ -148,12 +158,6 @@ describe('wrong request tests', () => {
             }
         ]
     ])('%s', (_scenario: string, badRequest: any) => {
-        const response = new ServerResponse();
-        // @ts-ignore
-        Server.serverFunction(badRequest, response)
-
-        expect(response.statusCode).toEqual(404);
-        expect(response.headers).toEqual({"Content-Type": "text/plain"})
-        expect(response.message).toEqual('Not Found')
+        testServerFunctionToReturn404Error(badRequest);
     });
 });
