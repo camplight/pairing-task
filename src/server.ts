@@ -31,7 +31,7 @@ export function serverFunction(req: IncomingMessage, res: ServerResponse, data: 
         return respondWithError(res, 404, 'Not Found');
     }
 
-    let requestUrl = req.url;
+    const requestUrl = req.url;
     if (!requestUrl) {
         return respondWithError(res, 404, 'Not Found');
     }
