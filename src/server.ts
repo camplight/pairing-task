@@ -40,24 +40,26 @@ export function serverFunction(req: IncomingMessage, res: ServerResponse, data: 
         return;
     }
 
-    if (requestUrl === '/users') {
-        if (data) {
-            return respondWithData(res, data);
-        }
-
-        return respondWithError(res, 500, 'Internal Server Error');
-    }
-
-    if (requestUrl.startsWith('/users/')) {
-        if (data && data.users) {
-            const id = requestUrl.split('/')[2];
-            const user = data.users.find((u: any) => u.id == id);
-            if (user) {
-                return respondWithData(res, user);
+    if (requestUrl.startsWith('/users')) {
+        if (requestUrl === '/users') {
+            if (data) {
+                return respondWithData(res, data);
             }
-            return respondWithError(res, 404, 'User not found');
+
+            return respondWithError(res, 500, 'Internal Server Error');
         }
-        return respondWithError(res, 500, 'Internal Server Error');
+
+        if (requestUrl.startsWith('/users/')) {
+            if (data && data.users) {
+                const id = requestUrl.split('/')[2];
+                const user = data.users.find((u: any) => u.id == id);
+                if (user) {
+                    return respondWithData(res, user);
+                }
+                return respondWithError(res, 404, 'User not found');
+            }
+            return respondWithError(res, 500, 'Internal Server Error');
+        }
     }
 
     if (requestUrl === '/health') {
