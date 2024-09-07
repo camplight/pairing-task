@@ -121,6 +121,13 @@ describe('wrong request tests', () => {
                 url: '/users',
                 method: "POST",
             }
+        ],
+        [
+            'should treat a request without URL',
+            {
+                // url: '/users',
+                method: "GET",
+            }
         ]
     ])('%s', (_scenario: string, badRequest: any) => {
         const response = new ServerResponse();
