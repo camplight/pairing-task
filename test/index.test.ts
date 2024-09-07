@@ -23,12 +23,17 @@ describe('main test', () => {
       url: "/health",
       method: "GET",
     }
+    const statusCode = 200;
+    const contentType = "text/plain";
+    const message = 'OK';
+
     const response = new ServerResponse();
     // @ts-ignore
     Server.serverFunction(request, response)
-    expect(response.statusCode).toEqual(200);
-    expect(response.headers).toEqual({"Content-Type": "text/plain"})
-    expect(response.message).toEqual('OK')
+
+    expect(response.statusCode).toEqual(statusCode);
+    expect(response.headers).toEqual({"Content-Type": contentType})
+    expect(response.message).toEqual(message)
   });
 
   it('when getting users', () => {
