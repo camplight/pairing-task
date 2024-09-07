@@ -46,7 +46,6 @@ export function serverFunction(req: IncomingMessage, res: ServerResponse, data: 
         } else {
             return respondWithError(res, 500, 'Internal Server Error');
         }
-        return;
     }
 
     if (requestUrl === '/health') {
@@ -65,7 +64,6 @@ export function serverFunction(req: IncomingMessage, res: ServerResponse, data: 
         } else {
             return respondWithError(res, 500, 'Internal Server Error');
         }
-        return;
     }
 
     respondWithError(res, 404, 'Not Found');
