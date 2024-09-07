@@ -48,10 +48,6 @@ export function serverFunction(req: IncomingMessage, res: ServerResponse, data: 
         return respondWithError(res, 500, 'Internal Server Error');
     }
 
-    if (requestUrl === '/health') {
-        return respondWithHealthCheck(res);
-    }
-
     if (requestUrl.startsWith('/users/')) {
         if (data && data.users) {
             const id = requestUrl.split('/')[2];
@@ -62,6 +58,10 @@ export function serverFunction(req: IncomingMessage, res: ServerResponse, data: 
             return respondWithError(res, 404, 'User not found');
         }
         return respondWithError(res, 500, 'Internal Server Error');
+    }
+
+    if (requestUrl === '/health') {
+        return respondWithHealthCheck(res);
     }
 
     respondWithError(res, 404, 'Not Found');
