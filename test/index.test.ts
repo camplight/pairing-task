@@ -59,6 +59,13 @@ describe('tests data', () => {
           JSON.stringify({ "id": "2", "name": "Bob" })
       ],
       [
+          'getting a user without user id',
+          "/users/",
+          404,
+          "text/plain",
+          'User not found'
+      ],
+      [
       'getting non-existent user id',
           "/users/9999",
           404,
