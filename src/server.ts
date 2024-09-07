@@ -43,9 +43,9 @@ export function serverFunction(req: IncomingMessage, res: ServerResponse, data: 
     if (requestUrl === '/users') {
         if (data) {
             return respondWithData(res, data);
-        } else {
-            return respondWithError(res, 500, 'Internal Server Error');
         }
+
+        return respondWithError(res, 500, 'Internal Server Error');
     }
 
     if (requestUrl === '/health') {
@@ -58,12 +58,10 @@ export function serverFunction(req: IncomingMessage, res: ServerResponse, data: 
             const user = data.users.find((u: any) => u.id == id);
             if (user) {
                 return respondWithData(res, user);
-            } else {
-                return respondWithError(res, 404, 'User not found');
             }
-        } else {
-            return respondWithError(res, 500, 'Internal Server Error');
+            return respondWithError(res, 404, 'User not found');
         }
+        return respondWithError(res, 500, 'Internal Server Error');
     }
 
     respondWithError(res, 404, 'Not Found');
