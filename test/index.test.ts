@@ -113,6 +113,38 @@ describe('tests with missing data', () => {
     });
 });
 
+describe('tests with corrupt data', () => {
+    it.each([
+        [
+            'getting users',
+            '/users',
+            200,
+            "application/json",
+            JSON.stringify({ notUsers: 423 }),
+        ],
+        [
+            'getting a user',
+            '/users/1',
+            500,
+            "text/plain",
+            'Internal Server Error',
+        ]
+    ])('%s', (_scenario: string, url: string, statusCode: number, contentType: string, message: any) => {
+        const request = {
+            url,
+            method: "GET",
+        }
+
+        const response = new ServerResponse();
+        // @ts-ignore
+        Server.serverFunction(request, response, { notUsers: 423 });
+
+        expect(response.statusCode).toEqual(statusCode);
+        expect(response.headers).toEqual({"Content-Type": contentType})
+        expect(response.message).toEqual(message);
+    });
+});
+
 describe('wrong request tests', () => {
     it.each([
         [
