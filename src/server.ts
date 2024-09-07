@@ -34,8 +34,10 @@ export function serverFunction(req: IncomingMessage, res: ServerResponse, data: 
         if (data) {
             respondWithData(res, data);
         } else {
-            res.writeHead(500, {'Content-Type': 'text/plain'});
-            res.end('Internal Server Error');
+            let code = 500;
+            let message = 'Internal Server Error';
+            res.writeHead(code, {'Content-Type': 'text/plain'});
+            res.end(message);
         }
         return;
     }
