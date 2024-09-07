@@ -70,6 +70,21 @@ describe('tests data', () => {
   });
 })
 
+function testServerFunctionWithoutData(url: string, statusCode: number, contentType: string, message: any) {
+    const request = {
+        url,
+        method: "GET",
+    }
+
+    const response = new ServerResponse();
+    // @ts-ignore
+    Server.serverFunction(request, response, '');
+
+    expect(response.statusCode).toEqual(statusCode);
+    expect(response.headers).toEqual({"Content-Type": contentType})
+    expect(response.message).toEqual(message);
+}
+
 describe('tests with missing data', () => {
     it.each([
         [
@@ -87,17 +102,6 @@ describe('tests with missing data', () => {
             'Internal Server Error',
         ]
     ])('%s', (_scenario: string, url: string, statusCode: number, contentType: string, message: any) => {
-        const request = {
-            url,
-            method: "GET",
-        }
-
-        const response = new ServerResponse();
-        // @ts-ignore
-        Server.serverFunction(request, response, '');
-
-        expect(response.statusCode).toEqual(statusCode);
-        expect(response.headers).toEqual({"Content-Type": contentType})
-        expect(response.message).toEqual(message);
+        testServerFunctionWithoutData(url, statusCode, contentType, message);
     });
 });
