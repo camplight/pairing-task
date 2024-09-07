@@ -12,7 +12,7 @@ export function getDataFromFile(fileName: string): any {
 }
 
 export function serverFunction(req: IncomingMessage, res: ServerResponse, data: any = getDataFromFile('data.json')) {
-    if (req.url === '/users' && req.method === 'GET') {
+    if (req.method === 'GET' && req.url === '/users') {
         if (data) {
             res.writeHead(200, { 'Content-Type': 'application/json' });
             res.end(JSON.stringify(data));
