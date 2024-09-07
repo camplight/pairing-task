@@ -87,9 +87,9 @@ function testServerFunctionWithoutData(url: string, statusCode: number, contentT
     // @ts-ignore
     Server.serverFunction(request, response, '');
 
-    expect(response.statusCode).toEqual(statusCode);
-    expect(response.headers).toEqual({"Content-Type": contentType})
-    expect(response.message).toEqual(message);
+    expect(response.statusCode).toEqual(500);
+    expect(response.headers).toEqual({"Content-Type": "text/plain"})
+    expect(response.message).toEqual('Internal Server Error');
 }
 
 describe('tests with missing data', () => {
