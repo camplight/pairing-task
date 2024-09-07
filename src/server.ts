@@ -11,7 +11,7 @@ export function getDataFromFile(fileName: string): any {
     }
 }
 
-function prepareResponse(res: ServerResponse, data: any) {
+function respondWithData(res: ServerResponse, data: any) {
     res.writeHead(200, {'Content-Type': 'application/json'});
     res.end(JSON.stringify(data));
 }
@@ -32,7 +32,7 @@ export function serverFunction(req: IncomingMessage, res: ServerResponse, data: 
 
     if (requestUrl === '/users') {
         if (data) {
-            prepareResponse(res, data);
+            respondWithData(res, data);
         } else {
             res.writeHead(500, {'Content-Type': 'text/plain'});
             res.end('Internal Server Error');
@@ -51,7 +51,7 @@ export function serverFunction(req: IncomingMessage, res: ServerResponse, data: 
             const id = requestUrl.split('/')[2];
             const user = data.users.find((u: any) => u.id == id);
             if (user) {
-                prepareResponse(res, user);
+                respondWithData(res, user);
             } else {
                 res.writeHead(404, {'Content-Type': 'text/plain'});
                 res.end('User not found');
