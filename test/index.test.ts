@@ -30,7 +30,7 @@ function testServerFunctionWithData(url: string, statusCode: number, contentType
   expect(response.message).toEqual(message)
 }
 
-describe('tests data', () => {
+describe('tests with regular data', () => {
   it.each([
       [
         'making a health check returns status 200',
