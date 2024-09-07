@@ -16,6 +16,11 @@ function respondWithData(res: ServerResponse, data: any) {
     res.end(JSON.stringify(data));
 }
 
+function respondWithError(res: ServerResponse<IncomingMessage>, code: number, message: string) {
+    res.writeHead(code, {'Content-Type': 'text/plain'});
+    res.end(message);
+}
+
 export function serverFunction(req: IncomingMessage, res: ServerResponse, data: any = getDataFromFile('data.json')) {
     if (req.method !== 'GET') {
         res.writeHead(404, {'Content-Type': 'text/plain'});
@@ -36,8 +41,7 @@ export function serverFunction(req: IncomingMessage, res: ServerResponse, data: 
         } else {
             let code = 500;
             let message = 'Internal Server Error';
-            res.writeHead(code, {'Content-Type': 'text/plain'});
-            res.end(message);
+            respondWithError(res, code, message);
         }
         return;
     }
