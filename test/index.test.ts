@@ -28,6 +28,21 @@ describe('main test', () => {
         200,
         "text/plain",
         'OK',
+      ],
+      [
+        'getting users',
+        {
+          url: "/users",
+          method: "GET",
+        },
+        200,
+        "application/json",
+        JSON.stringify({
+          "users": [
+            { "id": "1", "name": "Alice" },
+            { "id": "2", "name": "Bob" }
+          ]
+        })
       ]
   ])('%s', (_scenario: string, request: any, statusCode: number, contentType: string, message: any) => {
     const response = new ServerResponse();
@@ -37,24 +52,6 @@ describe('main test', () => {
     expect(response.statusCode).toEqual(statusCode);
     expect(response.headers).toEqual({"Content-Type": contentType})
     expect(response.message).toEqual(message)
-  });
-
-  it('when getting users', () => {
-    const request = {
-      url: "/users",
-      method: "GET",
-    }
-    const response = new ServerResponse();
-    // @ts-ignore
-    Server.serverFunction(request, response)
-    expect(response.statusCode).toEqual(200);
-    expect(response.headers).toEqual({"Content-Type": "application/json"})
-    expect(response.message).toEqual(JSON.stringify({
-      "users": [
-        { "id": "1", "name": "Alice" },
-        { "id": "2", "name": "Bob" }
-      ]
-    }));
   });
 
   it('when getting users and there is no data', () => {
