@@ -12,7 +12,10 @@ export function getDataFromFile(fileName: string): any {
 }
 
 export function serverFunction(req: IncomingMessage, res: ServerResponse, data: any = getDataFromFile('data.json')) {
-    if (req.method === 'GET') {
+    if (req.method !== 'GET') {
+        res.writeHead(404, {'Content-Type': 'text/plain'});
+        res.end('Not Found');
+    } else {
         if (req.url === '/users') {
             if (data) {
                 res.writeHead(200, {'Content-Type': 'application/json'});
@@ -47,8 +50,5 @@ export function serverFunction(req: IncomingMessage, res: ServerResponse, data: 
                 }
             }
         }
-    } else {
-        res.writeHead(404, {'Content-Type': 'text/plain'});
-        res.end('Not Found');
     }
 }
