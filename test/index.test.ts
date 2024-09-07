@@ -1,6 +1,4 @@
 import * as Server from "../src/server";
-import * as fs from 'fs';
-import {readFileSync} from "fs";
 
 class ServerResponse {
   public statusCode: number = 0;
@@ -84,6 +82,13 @@ describe('tests with missing data', () => {
         [
             'getting users',
             '/users',
+            500,
+            "text/plain",
+            'Internal Server Error',
+        ],
+        [
+            'getting a user',
+            '/users/1',
             500,
             "text/plain",
             'Internal Server Error',
