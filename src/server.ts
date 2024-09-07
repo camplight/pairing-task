@@ -39,9 +39,7 @@ export function serverFunction(req: IncomingMessage, res: ServerResponse, data: 
         if (data) {
             respondWithData(res, data);
         } else {
-            let code = 500;
-            let message = 'Internal Server Error';
-            respondWithError(res, code, message);
+            respondWithError(res, 500, 'Internal Server Error');
         }
         return;
     }
