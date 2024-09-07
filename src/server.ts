@@ -33,7 +33,10 @@ export function serverFunction(req: IncomingMessage, res: ServerResponse, data: 
             res.writeHead(500, {'Content-Type': 'text/plain'});
             res.end('Internal Server Error');
         }
-    } else if (requestUrl === '/health') {
+        return;
+    }
+
+    if (requestUrl === '/health') {
         res.writeHead(200, {'Content-Type': 'text/plain'});
         res.end('OK');
     } else if (requestUrl.startsWith('/users/')) {
