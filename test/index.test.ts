@@ -53,6 +53,16 @@ describe('main test', () => {
             { "id": "2", "name": "Bob" }
           ]
         })
+      ],
+      [
+      'getting one particular user by id',
+          {
+            url: "/users/2",
+            method: "GET",
+          },
+          200,
+          "application/json",
+          JSON.stringify({ "id": "2", "name": "Bob" })
       ]
   ])('%s', (_scenario: string, request: any, statusCode: number, contentType: string, message: any) => {
     testServerFunctionWithData(request, statusCode, contentType, message);
