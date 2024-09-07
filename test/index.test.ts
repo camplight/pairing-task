@@ -114,6 +114,13 @@ describe('wrong request tests', () => {
                 url: '/i_do_not_exist',
                 method: "GET",
             }
+        ],
+        [
+            'should treat non-GET method',
+            {
+                url: '/users',
+                method: "POST",
+            }
         ]
     ])('%s', (_scenario: string, badRequest: any) => {
         const response = new ServerResponse();
