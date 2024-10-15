@@ -2,3 +2,5 @@ dist/
 node_modules/
 data.json
 .idea/
+test-results/
+playwright-report/
