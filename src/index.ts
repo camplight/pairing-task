@@ -1,6 +1,12 @@
 import { readFileSync } from 'fs';
 import { createServer, IncomingMessage, ServerResponse } from 'http';
 
+// TODO
+// 0. tech stack confirmation
+// 1. test coverage
+// 2. refactor without fear of breaking stuff
+// 
+
 const port = 3000;
 
 function getDataFromFile(fileName: string): any {
