@@ -13,6 +13,8 @@ function getDataFromFile(fileName: string): any {
 
 // TODO
 // get rid of all elses
+// Move handlers to different files
+
 
 function getUsersHandler(res: ServerResponse) {
     const data = getDataFromFile('data.json');
@@ -35,6 +37,9 @@ export function serverHandler(req: IncomingMessage, res: ServerResponse) {
     } else {
         NotFoundHandler(res);
     }
+    // here should be the only place that say
+    // res.writeHEad
+    // res.end
 }
 
 function NotFoundHandler(res: ServerResponse<IncomingMessage>) {
