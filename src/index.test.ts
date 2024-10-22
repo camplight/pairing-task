@@ -1,4 +1,5 @@
-import {serverHandler, ServerHanlder} from "./serverHandler"
+import {serverHandler} from "./serverHandler"
+import request from 'supertest';
 
 // test GET /health -> should return 200, OK.
 // test GET /users with a json mock -> should return 200, and the json mock.
@@ -11,11 +12,9 @@ import {serverHandler, ServerHanlder} from "./serverHandler"
 // test POST /health -> should return 404mo
 
 describe('Server service tests', () => {
-    test('it should return 200 with GET /health', () => {
-        const request = {method: 'GET', url: '/health'};
-        const response = jest.fn();
-        expect(response).toBeCalledWith()
-        expect(response.statusCode).toBe(200);
+    test('it should return 200 with GET /health', async () => {
+        const response = await request(serverHandler).get('/health');
+        expect(response.status).toBe(200);
         expect(response.text).toBe('OK');
     });
 });
