@@ -2,21 +2,13 @@ import {serverHandler} from "./serverHandler"
 import request from 'supertest';
 import * as fs from 'fs';
 
-// test GET /health -> should return 200, OK.
-// test GET /users with a json mock -> should return 200, and the json mock.
-// test GET /users without json mock -> should return 500
-// test GET /users with invalid json -> should return 500
-// test GET /users/:id with a json mock -> should return 200, and the whole user item
-// test GET /users/:id with a non-existing user id -> should return 404
-// test GET /users/:id with a invalid json -> should return 500
-// test GET /whatever -> should return 404 with 'Not Found'
-// test POST /health -> should return 404mo
-
-
 jest.mock('fs');
 
-
 describe('Server service tests', () => {
+    afterEach(() => {
+        jest.resetAllMocks();
+    });
+
     it('should return 200 with GET /health', async () => {
         const response = await request(serverHandler).get('/health');
         expect(response.status).toBe(200);
@@ -32,11 +24,6 @@ describe('Server service tests', () => {
         expect(response.status).toBe(404);
     });
 
-    afterEach(() => {
-        jest.resetAllMocks();
-    });
-
-    // Test: GET /users with a valid JSON mock -> should return 200 and the JSON mock
     it('should return 200 and the JSON mock on GET /users', async () => {
         const mockData = {users: [{id: 1, name: 'John Doe'}]};
         (fs.readFileSync as jest.Mock).mockReturnValue(JSON.stringify(mockData));
