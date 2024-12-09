@@ -1,6 +1,6 @@
 # Summary
 
-This is the Camplight pair coding task. You and the interviewer are going to work together on it to make it better.
+This is the Camplight refactoring pair coding task. You and the interviewer are going to work together on it to make it better.
 
 ## Preparation
 
