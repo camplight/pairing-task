@@ -11,6 +11,6 @@ The intention is to work in a true pair-programming manner.
 
 # Goals
 
-1. Create an application that enhances text input using an LLM. It should receive some text and fix grammar and style issues in it.
+1. Create an application that enhances text input using an LLM similar to grammarly. It should receive some text and fix grammar and style issues in it.
 2. Add caching, so we can reduce the calls to the LLM.
 3. Implement a queue-based interface for the text-enhancement logic.
