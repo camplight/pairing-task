@@ -1,0 +1,20 @@
+{
+  "name": "llm-system",
+  "module": "index.ts",
+  "type": "module",
+  "scripts": {
+    "dev": "bun run --watch index.ts",
+    "test": "vitest"
+  },
+  "devDependencies": {
+    "@types/bun": "latest"
+  },
+  "peerDependencies": {
+    "typescript": "^5.0.0"
+  },
+  "dependencies": {
+    "@hono/zod-validator": "^0.4.2",
+    "hono": "^4.6.20",
+    "zod": "^3.24.1"
+  }
+}
